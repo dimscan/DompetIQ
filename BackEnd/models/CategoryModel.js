@@ -1,12 +1,11 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Users from "./UserModel.js";
-import Categories from "./CategoryModel.js";
 
 const { DataTypes } = Sequelize;
 
-const Transactions = db.define(
-  "transactions",
+const Categories = db.define(
+  "categories",
   {
     uuid: {
       type: DataTypes.STRING,
@@ -16,17 +15,17 @@ const Transactions = db.define(
         notEmpty: true,
       },
     },
-    amount: {
-      type: DataTypes.DECIMAL(10, 2),
+    name: {
+      type: DataTypes.STRING(30),
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    is_scheduled: {
-      type: DataTypes.ENUM("true", "false"),
+    type: {
+      type: DataTypes.ENUM("income", "expense"),
       allowNull: false,
-      defaultValue: "false",
+      defaultValue: "income",
       validate: {
         notEmpty: true,
       },
@@ -37,9 +36,7 @@ const Transactions = db.define(
   }
 );
 
-Users.hasMany(Transactions);
-Transactions.belongsTo(Users);
-Categories.hasMany(Transactions);
-Transactions.belongsTo(Categories);
+Users.hasMany(Categories);
+Categories.belongsTo(Users);
 
-export default Transactions;
+export default Categories;

@@ -5,26 +5,12 @@ import Categories from "./CategoryModel.js";
 
 const { DataTypes } = Sequelize;
 
-const Budgets = db.define(
-  "budgets",
+const Scheduled = db.define(
+  "scheduled",
   {
     uuid: {
       type: DataTypes.STRING,
       defaultValue: Sequelize.UUIDV4,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    period: {
-      type: DataTypes.ENUM("weekly", "monthly"),
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -37,19 +23,22 @@ const Budgets = db.define(
         notEmpty: true,
       },
     },
-    start_date: {
-      type: DataTypes.DATE,
+    type: {
+      type: DataTypes.ENUM("monthly", "weekly", "Daily"),
       allowNull: false,
+      defaultValue: "weekly",
       validate: {
         notEmpty: true,
       },
     },
+    start_date: {
+      type: DataTypes.DATEONLY,
+    },
     end_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
+      type: DataTypes.DATEONLY,
+    },
+    description: {
+      type: DataTypes.TEXT,
     },
   },
   {
@@ -57,9 +46,9 @@ const Budgets = db.define(
   }
 );
 
-Users.hasMany(Budgets);
-Budgets.belongsTo(Users);
-Categories.hasMany(Budgets);
-Budgets.belongsTo(Categories);
+Users.hasMany(Scheduled);
+Scheduled.belongsTo(Users);
+Categories.hasMany(Scheduled);
+Scheduled.belongsTo(Categories);
 
-export default Budgets;
+export default Scheduled;

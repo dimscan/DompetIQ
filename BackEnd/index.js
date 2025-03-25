@@ -7,13 +7,15 @@ import UserRoute from "./routes/UserRoute.js";
 import BudgetRoute from "./routes/BudgetRoute.js";
 import TransactionRoute from "./routes/TransactionRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
+import CategoryRoute from "./routes/CategoryRoute.js";
+import ScheduledRoute from "./routes/ScheduledRoute.js";
 dotenv.config();
 
 const app = express();
 
-(async () => {
-  await db.sync({ logging: console.log });
-})();
+// (async () => {
+//   await db.sync({ logging: console.log });
+// })();
 
 app.use(
   session({
@@ -35,6 +37,8 @@ app.use(express.json());
 app.use(UserRoute);
 app.use(BudgetRoute);
 app.use(TransactionRoute);
+app.use(CategoryRoute);
+app.use(ScheduledRoute);
 app.use(AuthRoute);
 
 app.listen(process.env.APP_PORT, () => {

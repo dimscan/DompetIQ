@@ -1,8 +1,30 @@
 import Transactions from "../models/TransactionModel.js";
+import { Sequelize } from "sequelize";
+import Users from "../models/UserModel.js";
+import Categories from "../models/CategoryModel.js";
 
 export const getTransactions = async (req, res) => {
   try {
-    const response = await Transactions.findAll();
+    const response = await Transactions.findAll({
+      attributes: [
+        "uuid",
+        "amount",
+        "is_scheduled",
+        [Sequelize.literal("user.username"), "user"],
+        [Sequelize.literal("category.name"), "category"],
+      ],
+      include: [
+        {
+          model: Users,
+          attributes: [],
+        },
+        {
+          model: Categories,
+          attributes: [],
+        },
+      ],
+      raw: true,
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ msg: error.message });
@@ -12,8 +34,9 @@ export const getTransactionById = async (req, res) => {
   try {
     const response = await Transactions.findOne({
       where: {
-        id: req.params.id,
+        uuid: req.params.id,
       },
+      attributes: ["uuid", "amount", "is_scheduled"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -21,21 +44,22 @@ export const getTransactionById = async (req, res) => {
   }
 };
 export const createTransaction = async (req, res) => {
-  const { category_id, amount, is_scheduled } = req.body;
+  const { amount, is_scheduled } = req.body;
   const user_id = 1;
+  const category_id = 2;
   try {
     await Transactions.create({
-      userId: user_id,
-      category_id: category_id,
       amount: amount,
       is_scheduled: is_scheduled,
+      userId: user_id,
+      categoryId: category_id,
     });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
 export const updateTransaction = async (req, res) => {
-  const { category_id, amount, is_scheduled } = req.body;
+  const { amount, is_scheduled } = req.body;
   const transaction = await Transactions.findOne({
     where: {
       uuid: req.params.id,
@@ -46,13 +70,12 @@ export const updateTransaction = async (req, res) => {
   try {
     await Transactions.update(
       {
-        category_id: category_id,
         amount: amount,
         is_scheduled: is_scheduled,
       },
       {
         where: {
-          id: transaction.id,
+          uuid: req.params.id,
         },
       }
     );
@@ -72,7 +95,7 @@ export const deleteTransaction = async (req, res) => {
   try {
     await Transactions.destroy({
       where: {
-        id: transaction.id,
+        uuid: req.params.id,
       },
     });
     res.status(200).json({ msg: "Transaksi berhasil dihapus" });
