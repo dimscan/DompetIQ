@@ -1,0 +1,91 @@
+// Create Category
+POST http://localhost:5000/category
+Content-Type: application/json
+
+{
+    "name" : "Bensin",
+    "type" : "expense"
+}
+
+###
+// Get All Category
+GET http://localhost:5000/category
+
+###
+
+// Get Category By ID
+GET http://localhost:5000/category/c638463a-665a-40e0-ba68-140331b91b50
+
+###
+// Update Category by id
+PATCH  http://localhost:5000/category/a4dd6f73-6395-4eda-8c83-c6191c4d8679
+Content-Type: application/json
+
+{
+    "type" : "income"
+}
+
+###
+// Delete Category By ID
+DELETE http://localhost:5000/category/c638463a-665a-40e0-ba68-140331b91b50
+
+###
+// Create Transaction
+POST http://localhost:5000/transactions
+Content-Type: application/json
+
+{
+    "amount" : 100000,
+    "is_scheduled" : "true"
+}
+
+###
+// Get All Transactions
+GET http://localhost:5000/transactions
+
+###
+// Get Transaction By ID
+GET http://localhost:5000/transactions/df327c1a-0032-479d-a61a-aace15d29f46
+
+###
+// Update Transaction By ID
+PATCH http://localhost:5000/transactions/df327c1a-0032-479d-a61a-aace15d29f46
+Content-Type: application/json
+
+{
+    "amount" : 2000
+}
+
+###
+// Delete Transaction By ID
+DELETE http://localhost:5000/transactions/ca5e2a41-b235-4908-a578-c36cd5c632dd
+
+###
+// Create Schedule
+POST http://localhost:5000/scheduled
+Content-Type: application/json
+
+{
+    "amount" : 7000,
+    "type" : "monthly",
+    "start_date" : "2025-02-02",
+    "end_date" : "2025-03-03",
+    "description" : "Cicilan Pesawat"
+}
+
+###
+// Get All Scheduled
+GET http://localhost:5000/scheduled
+
+###
+// Update Scheduled
+PATCH http://localhost:5000/scheduled/b63cd683-7c0e-42b6-8068-022ff48df681
+Content-Type: application/json
+
+{
+    "amount" : "5000000"
+}
+
+###
+// Delete Scheduled By ID
+DELETE http://localhost:5000/scheduled/b63cd683-7c0e-42b6-8068-022ff48df681
