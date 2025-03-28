@@ -24,7 +24,7 @@ const Scheduled = db.define(
       },
     },
     type: {
-      type: DataTypes.ENUM("monthly", "weekly", "Daily"),
+      type: DataTypes.ENUM("monthly", "weekly", "daily"),
       allowNull: false,
       defaultValue: "weekly",
       validate: {

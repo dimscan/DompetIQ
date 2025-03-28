@@ -5,12 +5,7 @@ import Users from "../models/UserModel.js";
 export const getCategories = async (req, res) => {
   try {
     const response = await Categories.findAll({
-      attributes: [
-        "uuid",
-        "name",
-        "type",
-        [Sequelize.col("user.username"), "user"],
-      ],
+      attributes: ["uuid", "name", [Sequelize.col("user.username"), "user"]],
       include: [
         {
           model: Users,
@@ -38,12 +33,11 @@ export const getCategoryById = async (req, res) => {
   }
 };
 export const createCategory = async (req, res) => {
-  const { name, type } = req.body;
+  const { name } = req.body;
   const user_id = 1;
   try {
     await Categories.create({
       name: name,
-      type: type,
       userId: user_id,
     });
   } catch (error) {

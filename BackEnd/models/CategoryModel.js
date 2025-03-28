@@ -22,14 +22,6 @@ const Categories = db.define(
         notEmpty: true,
       },
     },
-    type: {
-      type: DataTypes.ENUM("income", "expense"),
-      allowNull: false,
-      defaultValue: "income",
-      validate: {
-        notEmpty: true,
-      },
-    },
   },
   {
     freezeTableName: true,

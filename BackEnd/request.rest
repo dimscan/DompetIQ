@@ -1,10 +1,21 @@
+// Create User
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "username" : "PambudiWahyu",
+    "email" : "PambudiW@gmail.com",
+    "password" : "123",
+    "confPassword" : "123"
+}
+
+###
 // Create Category
 POST http://localhost:5000/category
 Content-Type: application/json
 
 {
-    "name" : "Bensin",
-    "type" : "expense"
+    "name" : "Makanan"
 }
 
 ###
@@ -22,7 +33,7 @@ PATCH  http://localhost:5000/category/a4dd6f73-6395-4eda-8c83-c6191c4d8679
 Content-Type: application/json
 
 {
-    "type" : "income"
+    "type" : "expense"
 }
 
 ###
@@ -35,7 +46,8 @@ POST http://localhost:5000/transactions
 Content-Type: application/json
 
 {
-    "amount" : 100000,
+    "amount" : 52000,
+    "type" : "expense",
     "is_scheduled" : "true"
 }
 
@@ -66,11 +78,11 @@ POST http://localhost:5000/scheduled
 Content-Type: application/json
 
 {
-    "amount" : 7000,
-    "type" : "monthly",
-    "start_date" : "2025-02-02",
-    "end_date" : "2025-03-03",
-    "description" : "Cicilan Pesawat"
+    "amount" : 60000,
+    "type" : "weekly",
+    "start_date" : "2025-02-12",
+    "end_date" : "2025-03-13",
+    "description" : "Cicilan Kapal Selam"
 }
 
 ###
@@ -89,3 +101,11 @@ Content-Type: application/json
 ###
 // Delete Scheduled By ID
 DELETE http://localhost:5000/scheduled/b63cd683-7c0e-42b6-8068-022ff48df681
+
+###
+// Schedule Filter
+GET http://localhost:5000/scheduled?category_id=4
+
+###
+// Schedule Filter Date
+GET http://localhost:5000/scheduled?start_date=2025-02-12

@@ -1,5 +1,5 @@
 import Scheduled from "../models/ScheduledModel.js";
-import { Sequelize } from "sequelize";
+import { Sequelize, Op } from "sequelize";
 import Users from "../models/UserModel.js";
 import Categories from "../models/CategoryModel.js";
 
@@ -33,6 +33,7 @@ export const getScheduled = async (req, res) => {
     res.status(400).json({ msg: error.message });
   }
 };
+
 export const getScheduledById = async (req, res) => {
   try {
     const response = await Scheduled.findOne({
@@ -48,7 +49,7 @@ export const getScheduledById = async (req, res) => {
 export const createScheduled = async (req, res) => {
   const { amount, type, start_date, end_date, description } = req.body;
   const user_id = 1;
-  const category_id = 2;
+  const category_id = 4;
   try {
     await Scheduled.create({
       amount: amount,
