@@ -1,6 +1,5 @@
 import Budgets from "../models/BudgetModel.js";
 import Users from "../models/UserModel.js";
-import { Op } from "sequelize";
 
 export const createBudget = async (req, res) => {
   try {
@@ -104,7 +103,7 @@ export const updateBudget = async (req, res) => {
         },
       }
     );
-    res.status(200).json("Budget updated");
+    res.status(200).json({ msg: "Budget updated" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -127,45 +126,6 @@ export const deleteBudget = async (req, res) => {
       },
     });
     res.status(200).json("Budget deleted");
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const filterBudgetByCategory = async (req, res) => {
-  const category_id = req.params.category_id;
-  try {
-    const budgets = await Budgets.findAll({
-      where: {
-        userId: req.userId,
-        category_id: category_id,
-      },
-    });
-    if (!budgets)
-      return res
-        .status(404)
-        .json({ error: "Budget with this category not found" });
-    res.status(200).json(budgets);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const filterBudgetByDate = async (req, res) => {
-  const start_date = req.body.start_date;
-  const end_date = req.body.end_date;
-  try {
-    const budgets = await Budgets.findAll({
-      where: {
-        userId: req.userId,
-        createdAt: {[Op.between]: [start_date, end_date]},
-      },
-    });
-    if (!budgets)
-      return res
-        .status(404)
-        .json({ error: "Budget with this range of date not found" });
-        res.status(200).json({})
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -8,10 +8,10 @@ export const createUser = async (req, res) => {
   }
   const user = await Users.findOne({
     where: {
-      username: req.body.username
-    }
+      username: req.body.username,
+    },
   });
-  if(user) return res.status(403).json({error: "Username is already used!"});
+  if (user) return res.status(403).json({ error: "Username is already used!" });
   const hashedPassword = await argon2.hash(password);
   try {
     await Users.create({

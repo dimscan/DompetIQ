@@ -5,14 +5,15 @@ import {
   createTransaction,
   updateTransaction,
   deleteTransaction,
-} from "../controllers/Transaction.js";
+} from "../controllers/Transactions.js";
+import { verifyUser } from "../middleware/AuthUsers.js";
 
 const router = express.Router();
 
-router.get("/transactions", getTransactions);
-router.get("/transactions/:id", getTransactionById);
-router.post("/transactions", createTransaction);
-router.patch("/transactions/:id", updateTransaction);
-router.delete("/transactions/:id", deleteTransaction);
+router.get("/transactions", verifyUser, getTransactions);
+router.get("/transactions/:id", verifyUser, getTransactionById);
+router.post("/transactions", verifyUser, createTransaction);
+router.patch("/transactions/:id", verifyUser, updateTransaction);
+router.delete("/transactions/:id", verifyUser, deleteTransaction);
 
 export default router;
