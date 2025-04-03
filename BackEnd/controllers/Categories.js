@@ -1,11 +1,13 @@
 import Categories from "../models/CategoryModel.js";
-import { Sequelize } from "sequelize";
 import Users from "../models/UserModel.js";
 
 export const getCategories = async (req, res) => {
   try {
     const response = await Categories.findAll({
-      attributes: ["uuid", "name", [Sequelize.col("user.username"), "user"]],
+      where: {
+        userId: req.userId,
+      },
+      attributes: ["uuid", "name", "type"],
       include: [
         {
           model: Users,
@@ -23,6 +25,7 @@ export const getCategoryById = async (req, res) => {
   try {
     const response = await Categories.findOne({
       where: {
+        userId: req.userId,
         uuid: req.params.id,
       },
       attributes: ["uuid", "name", "type"],
@@ -33,13 +36,14 @@ export const getCategoryById = async (req, res) => {
   }
 };
 export const createCategory = async (req, res) => {
-  const { name } = req.body;
-  const user_id = 1;
+  const { name, type } = req.body;
   try {
     await Categories.create({
       name: name,
-      userId: user_id,
+      type: type,
+      userId: req.userId,
     });
+    res.status(201).json({ msg: "Category Berhasil Dibuat" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -48,6 +52,7 @@ export const updateCategory = async (req, res) => {
   const { name, type } = req.body;
   const category = await Categories.findOne({
     where: {
+      userId: req.userId,
       uuid: req.params.id,
     },
   });
@@ -61,6 +66,7 @@ export const updateCategory = async (req, res) => {
       },
       {
         where: {
+          userId: req.userId,
           uuid: req.params.id,
         },
       }
@@ -73,6 +79,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
   const category = await Categories.findOne({
     where: {
+      userId: req.userId,
       uuid: req.params.id,
     },
   });
@@ -81,6 +88,7 @@ export const deleteCategory = async (req, res) => {
   try {
     await Categories.destroy({
       where: {
+        userId: req.userId,
         uuid: req.params.id,
       },
     });

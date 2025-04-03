@@ -23,14 +23,6 @@ const Transactions = db.define(
         notEmpty: true,
       },
     },
-    type: {
-      type: DataTypes.ENUM("income", "expense"),
-      allowNull: false,
-      defaultValue: "income",
-      validate: {
-        notEmpty: true,
-      },
-    },
     is_scheduled: {
       type: DataTypes.ENUM("true", "false"),
       allowNull: false,

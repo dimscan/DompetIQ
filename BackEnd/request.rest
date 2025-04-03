@@ -3,11 +3,16 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "username" : "PambudiWahyu",
+    "username" : "RizalKun",
     "email" : "PambudiW@gmail.com",
     "password" : "123",
     "confPassword" : "123"
 }
+
+###
+
+// Get All User
+GET http://localhost:5000/users
 
 ###
 // Create Category
@@ -15,7 +20,8 @@ POST http://localhost:5000/category
 Content-Type: application/json
 
 {
-    "name" : "Makanan"
+    "name" : "BPJS",
+    "type" : "income"
 }
 
 ###
@@ -25,20 +31,21 @@ GET http://localhost:5000/category
 ###
 
 // Get Category By ID
-GET http://localhost:5000/category/c638463a-665a-40e0-ba68-140331b91b50
+GET http://localhost:5000/category/e87c31af-9a3a-4196-938d-3da0ea99096c
 
 ###
 // Update Category by id
-PATCH  http://localhost:5000/category/a4dd6f73-6395-4eda-8c83-c6191c4d8679
+PATCH  http://localhost:5000/category/945c9b80-10b6-4c3a-a1ac-1d3004240969
 Content-Type: application/json
 
 {
+    "name" : "Bpjs",
     "type" : "expense"
 }
 
 ###
 // Delete Category By ID
-DELETE http://localhost:5000/category/c638463a-665a-40e0-ba68-140331b91b50
+DELETE http://localhost:5000/category/945c9b80-10b6-4c3a-a1ac-1d3004240969
 
 ###
 // Create Transaction
@@ -46,9 +53,10 @@ POST http://localhost:5000/transactions
 Content-Type: application/json
 
 {
-    "amount" : 52000,
+    "amount" : 100000,
     "type" : "expense",
-    "is_scheduled" : "true"
+    "is_scheduled" : "false",
+    "category_name" : "Bensin"
 }
 
 ###
@@ -61,16 +69,18 @@ GET http://localhost:5000/transactions/df327c1a-0032-479d-a61a-aace15d29f46
 
 ###
 // Update Transaction By ID
-PATCH http://localhost:5000/transactions/df327c1a-0032-479d-a61a-aace15d29f46
+PATCH http://localhost:5000/transactions/9f2921dd-621e-4d84-ae13-f3df1594d7a8
 Content-Type: application/json
 
 {
-    "amount" : 2000
+    "amount" : 90000,
+    "category_name" : "Liburan"
+    
 }
 
 ###
 // Delete Transaction By ID
-DELETE http://localhost:5000/transactions/ca5e2a41-b235-4908-a578-c36cd5c632dd
+DELETE http://localhost:5000/transactions/5d950575-5dfe-4fc5-a37c-65a63aeaf9f7
 
 ###
 // Create Schedule
@@ -78,11 +88,13 @@ POST http://localhost:5000/scheduled
 Content-Type: application/json
 
 {
-    "amount" : 60000,
-    "type" : "weekly",
-    "start_date" : "2025-02-12",
-    "end_date" : "2025-03-13",
-    "description" : "Cicilan Kapal Selam"
+    "amount" : 57000,
+    "period" : "weekly",
+    "type" : "expense",
+    "start_date" : "2025-04-23",
+    "end_date" : "2025-06-23",
+    "description" : "Jajan Mingguan",
+    "category_name" : "Makanan"
 }
 
 ###
@@ -91,16 +103,16 @@ GET http://localhost:5000/scheduled
 
 ###
 // Update Scheduled
-PATCH http://localhost:5000/scheduled/b63cd683-7c0e-42b6-8068-022ff48df681
+PATCH http://localhost:5000/scheduled/ff25816a-46e3-42e6-95cd-3b4cbcc60702
 Content-Type: application/json
 
 {
-    "amount" : "5000000"
+    "description": "Jajan minggu depan"
 }
 
 ###
 // Delete Scheduled By ID
-DELETE http://localhost:5000/scheduled/b63cd683-7c0e-42b6-8068-022ff48df681
+DELETE http://localhost:5000/scheduled/ff25816a-46e3-42e6-95cd-3b4cbcc60702
 
 ###
 // Schedule Filter
@@ -109,3 +121,17 @@ GET http://localhost:5000/scheduled?category_id=4
 ###
 // Schedule Filter Date
 GET http://localhost:5000/scheduled?start_date=2025-02-12
+
+###
+// Login
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email" : "PambudiW@gmail.com",
+    "password" : "123"
+}
+
+###
+// Logout
+DELETE http://localhost:5000/logout

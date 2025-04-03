@@ -23,10 +23,18 @@ const Scheduled = db.define(
         notEmpty: true,
       },
     },
-    type: {
+    period: {
       type: DataTypes.ENUM("monthly", "weekly", "daily"),
       allowNull: false,
-      defaultValue: "weekly",
+      defaultValue: "monthly",
+      validate: {
+        notEmpty: true,
+      },
+    },
+    type: {
+      type: DataTypes.ENUM("income", "expense"),
+      allowNull: false,
+      defaultValue: "expense",
       validate: {
         notEmpty: true,
       },

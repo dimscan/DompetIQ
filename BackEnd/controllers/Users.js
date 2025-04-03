@@ -6,6 +6,12 @@ export const createUser = async (req, res) => {
   if (password !== confPassword) {
     return res.status(400).json({ error: "Passwords do not match" });
   }
+  const user = await Users.findOne({
+    where: {
+      username: req.body.username,
+    },
+  });
+  if (user) return res.status(403).json({ error: "Username is already used!" });
   const hashedPassword = await argon2.hash(password);
   try {
     await Users.create({

@@ -6,13 +6,14 @@ import {
   updateScheduled,
   deleteScheduled,
 } from "../controllers/Scheduled.js";
+import { verifyUser } from "../middleware/AuthUsers.js";
 
 const router = express.Router();
 
-router.get("/scheduled", getScheduled);
-router.get("/scheduled/:id", getScheduledById);
-router.post("/scheduled", createScheduled);
-router.patch("/scheduled/:id", updateScheduled);
-router.delete("/scheduled/:id", deleteScheduled);
+router.get("/scheduled", verifyUser, getScheduled);
+router.get("/scheduled/:id", verifyUser, getScheduledById);
+router.post("/scheduled", verifyUser, createScheduled);
+router.patch("/scheduled/:id", verifyUser, updateScheduled);
+router.delete("/scheduled/:id", verifyUser, deleteScheduled);
 
 export default router;
