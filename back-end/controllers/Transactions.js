@@ -2,7 +2,6 @@ import Transactions from "../models/TransactionModel.js";
 import { Sequelize, Op } from "sequelize";
 import Users from "../models/UserModel.js";
 import Categories from "../models/CategoryModel.js";
-import Scheduled from "../models/ScheduledModel.js";
 
 export const getTransactions = async (req, res) => {
   try {

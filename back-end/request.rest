@@ -35,7 +35,7 @@ GET http://localhost:5000/category/e87c31af-9a3a-4196-938d-3da0ea99096c
 
 ###
 // Update Category by id
-PATCH  http://localhost:5000/category/945c9b80-10b6-4c3a-a1ac-1d3004240969
+PATCH  http://localhost:5000/category/f0b2e0fe-e6bc-4fba-87ae-9458c5cba35a
 Content-Type: application/json
 
 {
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 ###
 // Delete Category By ID
-DELETE http://localhost:5000/category/945c9b80-10b6-4c3a-a1ac-1d3004240969
+DELETE http://localhost:5000/category/f0b2e0fe-e6bc-4fba-87ae-9458c5cba35a
 
 ###
 // Create Transaction
