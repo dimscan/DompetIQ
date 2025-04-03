@@ -29,6 +29,10 @@ Content-Type: application/json
 GET http://localhost:5000/category
 
 ###
+// Get All Category with filter
+GET http://localhost:5000/category?type=expense
+
+###
 
 // Get Category By ID
 GET http://localhost:5000/category/e87c31af-9a3a-4196-938d-3da0ea99096c

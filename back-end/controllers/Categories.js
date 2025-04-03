@@ -3,10 +3,20 @@ import Users from "../models/UserModel.js";
 
 export const getCategories = async (req, res) => {
   try {
+    const where = { userId: req.userId };
+
+    if (req.query.type) {
+      const validTypes = ["income", "expense"];
+      if (validTypes.includes(req.query.type)) {
+        where.type = req.query.type;
+      } else {
+        return res.status(400).json({
+          msg: 'Type salah. Gunakan "income" atau "expense"',
+        });
+      }
+    }
     const response = await Categories.findAll({
-      where: {
-        userId: req.userId,
-      },
+      where,
       attributes: ["uuid", "name", "type"],
       include: [
         {
